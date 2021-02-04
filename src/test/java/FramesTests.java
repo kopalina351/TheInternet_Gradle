@@ -3,7 +3,7 @@ import PagesSteps.IFramePageSteps;
 import org.junit.Test;
 
 
-public class Frames {
+public class FramesTests {
     IframePage iframePage = new IframePage();
     IFramePageSteps iFramePageSteps = new IFramePageSteps();
     String newText = "Testing iFrame";
@@ -20,5 +20,4 @@ public class Frames {
         iFramePageSteps.enterTextToEditorAndCheckResult(newText);
         iFramePageSteps.switchToParentFrameAndUndoAction();
     }
-
 }

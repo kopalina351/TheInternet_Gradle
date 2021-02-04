@@ -28,6 +28,4 @@ public class IFramePageSteps {
         String content = iframePage.textField.getText();
         assert (content.isEmpty());
     }
-
-
 }
