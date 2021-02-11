@@ -1,15 +1,24 @@
-import Pages.UploadFilesPage;
 import PagesSteps.UploadFilesSteps;
 import org.junit.Test;
 
 public class UploadFilesTests {
-    UploadFilesPage uploadFilesPage = new UploadFilesPage();
-    UploadFilesSteps uploadFilesSteps = new UploadFilesSteps();
+    private final String titlePage = "File Uploader";
+    private final String path = "D:\\Automation\\MyProject\\src\\main\\resources\\";
+    private final String fileName = "Test1.txt";
+
+    UploadFilesSteps uploadFilesSteps = new UploadFilesSteps() {
+
+        @Override
+        public String getUrl() {
+            return "https://the-internet.herokuapp.com/upload";
+        }
+    };
 
     @Test
-    public void fileUpload(){
+    public void fileUpload() {
         uploadFilesSteps.openUploadFilesPage();
-        uploadFilesSteps.uploadFileFromPath(uploadFilesPage.path, uploadFilesPage.fileName);
-        uploadFilesSteps.checkThatFileIsUploaded();
+        uploadFilesSteps.checkUploadFilesPageIsOpen(titlePage);
+        uploadFilesSteps.uploadFileFromPath(path, fileName);
+        uploadFilesSteps.checkThatFileIsUploaded(fileName);
     }
 }

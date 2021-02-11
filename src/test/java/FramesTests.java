@@ -1,23 +1,39 @@
-import Pages.IframePage;
 import PagesSteps.IFramePageSteps;
 import org.junit.Test;
 
 
 public class FramesTests {
-    IframePage iframePage = new IframePage();
-    IFramePageSteps iFramePageSteps = new IFramePageSteps();
-    String newText = "Testing iFrame";
+    private final String urlIFrame = "https://the-internet.herokuapp.com/iframe";
+    private final String titlePage = "An iFrame containing the TinyMCE WYSIWYG Editor";
+    private final String newText = "Testing iFrame";
 
-    @Test
-    public void workWithIFrame(){
-        iFramePageSteps.openIframePageAndSwitchToFrame(iframePage.urlIFrame, iframePage.mainFrame);
+    IFramePageSteps iFramePageSteps = new IFramePageSteps() {
+        @Override
+        public String getUrl() {
+            return urlIFrame;
+        }
+    };
+
+    @Test()
+    public void workWithIFrame() {
+        iFramePageSteps.openIFramePage();
+        iFramePageSteps.checkIFramePageIsOpen(titlePage);
+        iFramePageSteps.switchToFrame();
         iFramePageSteps.enterTextToEditorAndCheckResult(newText);
+        iFramePageSteps.checkTextIsEntered(newText);
     }
 
     @Test
-    public void workWithIFrameEditor(){
-        iFramePageSteps.openIframePageAndSwitchToFrame(iframePage.urlIFrame, iframePage.mainFrame);
+    public void workWithIFrameEditor() {
+        iFramePageSteps.openIFramePage();
+        iFramePageSteps.checkIFramePageIsOpen(titlePage);
+        iFramePageSteps.switchToFrame();
         iFramePageSteps.enterTextToEditorAndCheckResult(newText);
-        iFramePageSteps.switchToParentFrameAndUndoAction();
+        iFramePageSteps.checkTextIsEntered(newText);
+        iFramePageSteps.switchToParentFrame();
+        iFramePageSteps.clickOnUndoButton();
+        iFramePageSteps.switchToMainFrame();
+        iFramePageSteps.checkUndoAction();
+
     }
 }

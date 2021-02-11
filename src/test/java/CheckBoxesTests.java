@@ -2,10 +2,19 @@ import PagesSteps.CheckBoxesSteps;
 import org.junit.Test;
 
 public class CheckBoxesTests {
-    CheckBoxesSteps checkBoxesSteps = new CheckBoxesSteps();
+    private final String urlCheckBoxes = "https://the-internet.herokuapp.com/checkboxes";
+    private final String titleCheckBoxes = "Checkboxes";
+    CheckBoxesSteps checkBoxesSteps = new CheckBoxesSteps() {
+        @Override
+        public String getUrl() {
+            return urlCheckBoxes;
+        }
+    };
 
     @Test
     public void findAllCheckBoxesOnPage() {
         checkBoxesSteps.openCheckBoxesPage();
-        checkBoxesSteps.clickOnFirstCheckBoxOnPage();    }
+        checkBoxesSteps.checkCheckBoxesPageIsOpen(titleCheckBoxes);
+        checkBoxesSteps.clickOnCheckBoxOnPage();
+    }
 }

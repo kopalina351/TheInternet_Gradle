@@ -1,31 +1,59 @@
 package PagesSteps;
 
-import Pages.IframePage;
-import com.codeborne.selenide.SelenideElement;
+import Base.AbstractBaseClase;
+import Pages.IFramePage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.switchTo;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-public class IFramePageSteps {
-    IframePage iframePage = new IframePage();
+public abstract class IFramePageSteps extends AbstractBaseClase {
+    IFramePage iFramePage = new IFramePage();
+    public abstract String getUrl();
 
-    public void openIframePageAndSwitchToFrame(String urlName, SelenideElement nameFrame){
-        open(urlName);
-        assert (iframePage.pageTitle.getText()).equals(iframePage.titleIFrame);
-        switchTo().frame(nameFrame);
+    public void openIFramePage() {
+        open(getUrl());
     }
-    public void enterTextToEditorAndCheckResult(String newText){
-        String text = iframePage.textField.getText();
-        iframePage.textField.clear();
-        iframePage.textField.sendKeys(newText);
-        assert (!text.equals(newText));
-        assert (iframePage.textField).getText().equals(newText);
+
+    public void checkIFramePageIsOpen(String titlePage) {
+        assertThat(iFramePage.getPageTitle().getText(), is(titlePage));
     }
-    public void switchToParentFrameAndUndoAction(){
+
+    public void switchToFrame() {
+        switchTo().frame(iFramePage.getMainFrame());
+    }
+
+    public void enterTextToEditorAndCheckResult(String newText) {
+        iFramePage.getTextField().clear();
+        iFramePage.getTextField().sendKeys(newText);
+
+    }
+
+    public void checkTextIsEntered(String newText) {
+        assertThat(iFramePage.getTextField().getText(), is(newText));
+    }
+
+    public void switchToParentFrame() {
         switchTo().parentFrame();
-        iframePage.undoDD.click();
-        switchTo().frame(iframePage.mainFrame);
-        String content = iframePage.textField.getText();
+    }
+
+    public void clickOnUndoButton() {
+        iFramePage.getUndoDD().click();
+        switchTo().frame(iFramePage.getMainFrame());
+        String content = iFramePage.getTextField().getText();
         assert (content.isEmpty());
     }
+
+    public void switchToMainFrame() {
+        switchTo().frame(iFramePage.getMainFrame());
+        String content = iFramePage.getTextField().getText();
+        assert (content.isEmpty());
+    }
+
+    public void checkUndoAction() {
+        String content = iFramePage.getTextField().getText();
+        assert (content.isEmpty());
+    }
+
 }
