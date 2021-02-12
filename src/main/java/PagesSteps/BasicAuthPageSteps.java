@@ -1,24 +1,22 @@
 package PagesSteps;
 
-import Base.AbstractBaseClase;
 import Pages.BasicAuthPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-public abstract class BasicAuthPageSteps extends AbstractBaseClase {
+public class BasicAuthPageSteps{
     BasicAuthPage basicAuthPage = new BasicAuthPage();
-    public abstract String getUrl();
 
-    public void openBasicAuthPageWithCred(){
-        open(getUrl());
+    public void openBAPageUsingBasicAuth(){
+        open(basicAuthPage.getUrl());
     }
 
-    public void checkBasicAuthPageIsOpen(String titlePage) {
-        assertThat(basicAuthPage.getPageTitle().getText(), is(titlePage));
+    public void checkBasicAuthPageIsOpen() {
+        assertThat(basicAuthPage.getPageTitleElement().getText(), is(basicAuthPage.getTitlePage()));
     }
-    public void openBasicAuthPageWithSetuppedCred(){
-        open(getUrl());
+    public void openBAPageWithoutCred(){
+        open(basicAuthPage.setUrl());
     }
 }

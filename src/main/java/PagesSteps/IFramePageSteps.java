@@ -1,6 +1,5 @@
 package PagesSteps;
 
-import Base.AbstractBaseClase;
 import Pages.IFramePage;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -8,16 +7,15 @@ import static com.codeborne.selenide.Selenide.switchTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public abstract class IFramePageSteps extends AbstractBaseClase {
+public class IFramePageSteps {
     IFramePage iFramePage = new IFramePage();
-    public abstract String getUrl();
 
     public void openIFramePage() {
-        open(getUrl());
+        open(iFramePage.getUrl());
     }
 
-    public void checkIFramePageIsOpen(String titlePage) {
-        assertThat(iFramePage.getPageTitle().getText(), is(titlePage));
+    public void checkIFramePageIsOpen() {
+        assertThat(iFramePage.getPageTitleElement().getText(), is(iFramePage.getTitlePage()));
     }
 
     public void switchToFrame() {

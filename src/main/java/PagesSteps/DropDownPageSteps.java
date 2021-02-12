@@ -1,22 +1,21 @@
 package PagesSteps;
 
-import Base.AbstractBaseClase;
 import Pages.DropDownPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
-public abstract class DropDownPageSteps extends AbstractBaseClase {
+public class DropDownPageSteps {
     DropDownPage dropDownPage = new DropDownPage();
-    public abstract String getUrl();
+
 
     public void openDropDownPage(){
-        open(getUrl());
+        open(dropDownPage.getUrl());
     }
 
-    public void checkDropDownPageIsOpen(String titlePage) {
-        assertThat (dropDownPage.getPageTitle().getText(), is(titlePage));
+    public void checkDropDownPageIsOpen() {
+        assertThat (dropDownPage.getPageTitleElement().getText(), is(dropDownPage.getTitlePage()));
     }
 
     public void clickOnDropDown(){
